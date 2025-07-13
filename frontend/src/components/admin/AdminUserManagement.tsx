@@ -26,9 +26,7 @@ import {
 import { toast } from 'react-toastify';
 import { useAdminAuth } from '@/contexts/admin/AuthContext';
 
-interface AdminUserManagementProps {}
-
-const AdminUserManagement: React.FC<AdminUserManagementProps> = () => {
+const AdminUserManagement: React.FC = () => {
   const { admin: currentAdmin } = useAdminAuth();
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,8 +45,8 @@ const AdminUserManagement: React.FC<AdminUserManagementProps> = () => {
       } else {
         setError(response.message || 'Failed to load admin users');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while loading admin users';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while loading admin users';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -80,8 +78,8 @@ const AdminUserManagement: React.FC<AdminUserManagementProps> = () => {
       } else {
         toast.error(response.message || 'Failed to delete admin account');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while deleting admin account';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while deleting admin account';
       toast.error(errorMessage);
     }
   };
@@ -366,8 +364,8 @@ const AddAdminForm: React.FC<AddAdminFormProps> = ({ onClose, onSuccess }) => {
       } else {
         setError(response.message || 'Failed to create admin account');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while creating admin account';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while creating admin account';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {

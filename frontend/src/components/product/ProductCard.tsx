@@ -10,7 +10,7 @@ import { Product } from "@/types/api";
 import { useState } from "react"
 import { useCart } from "@/contexts/CartContext";
 import { Input } from "../ui/input"
-import { useRouter } from "next/navigation"
+
 
 type ProductCardProps = {
   product: Product;
@@ -25,7 +25,7 @@ export const ProductCard = ({
 }: ProductCardProps) => {
     const [quantity, setQuantity] = useState(1);
     const { addToCart, isUpdating } = useCart();
-    const router = useRouter();
+
     const onAddToCart = async(productId: string, quantity: number) => {
       await addToCart(productId, quantity);
     }
@@ -39,8 +39,9 @@ export const ProductCard = ({
       <Card className="w-full max-w-sm shadow-xl rounded-2xl overflow-hidden border hover:shadow-2xl transition-shadow duration-300" >
         {/* Image Section */}
         <div className="relative w-full h-64 bg-muted">
-          {product && product.images.map((image) =>
+          {product && product.images.map((image, index) =>
          <Image
+            key={index}
             src={image.url}
             alt={
                 product.title

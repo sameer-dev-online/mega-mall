@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { productService, adminService } from '@/services/Api';
-import { Product, GetALLProducts } from '@/types/api';
+import { Product } from '@/types/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Alert } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -29,9 +30,7 @@ import {
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
 
-interface ProductManagementProps {}
-
-const ProductManagement: React.FC<ProductManagementProps> = () => {
+const ProductManagement: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -55,8 +54,8 @@ const ProductManagement: React.FC<ProductManagementProps> = () => {
       } else {
         setError(response.message || 'Failed to load products');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while loading products';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while loading products';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -83,8 +82,8 @@ const ProductManagement: React.FC<ProductManagementProps> = () => {
       } else {
         toast.error(response.message || 'Failed to delete product');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while deleting product';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while deleting product';
       toast.error(errorMessage);
     }
   };
@@ -284,10 +283,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onEdit, onDelete }) 
     <Card className="overflow-hidden">
       <div className="aspect-square relative">
         {product.images?.[0]?.url ? (
-          <img
+          <Image
             src={product.images[0].url}
             alt={product.title}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
           />
         ) : (
           <div className="w-full h-full bg-muted flex items-center justify-center">

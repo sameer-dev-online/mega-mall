@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -100,7 +100,7 @@ const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({
   };
 
   // Validate all fields
-  const validateForm = (): boolean => {
+  const validateForm = useCallback((): boolean => {
     const newErrors: FormErrors = {};
     let isValid = true;
 
@@ -114,7 +114,7 @@ const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({
 
     setErrors(newErrors);
     return isValid;
-  };
+  }, [formData]);
 
   // Handle input change
   const handleInputChange = (name: string, value: string) => {
@@ -137,7 +137,7 @@ const CustomerInfoForm: React.FC<CustomerInfoFormProps> = ({
   useEffect(() => {
     const isValid = validateForm();
     onValidationChange(isValid);
-  }, [formData, onValidationChange]);
+  }, [formData, onValidationChange, validateForm]);
 
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {

@@ -1,8 +1,7 @@
 
 'use client';
 
-import { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+
 import { Suspense, useEffect, useState } from 'react';
 import { productService } from '@/services/Api/productService';
 import ProductDetailsPage from '@/components/product/ProductDetailsPage';
@@ -12,11 +11,7 @@ import { useParams } from 'next/navigation';
 import { Product } from '@/types/api';
 import { toast } from 'react-toastify';
 
-interface ProductPageProps {
-  params: {
-    id: string;
-  };
-}
+
 
 // // Generate static params for popular products (optional)
 // export async function generateStaticParams() {

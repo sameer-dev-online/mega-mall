@@ -9,7 +9,6 @@ import {
   DashboardStats,
   Order,
   Product,
-  Admin,
   User,
   GetAllUsers,
   GetAllOrders,

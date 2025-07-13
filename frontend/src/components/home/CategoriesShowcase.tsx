@@ -26,7 +26,7 @@ interface CategoriesShowcaseProps {
 }
 
 // Category icons mapping
-const categoryIcons: Record<string, any> = {
+const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   'electronics': Smartphone,
   'fashion': Shirt,
   'home': Home,
@@ -107,7 +107,7 @@ const CategoriesShowcase: React.FC<CategoriesShowcaseProps> = ({
           </div>
           <h3 className="text-xl font-semibold">No Categories Available</h3>
           <p className="text-muted-foreground">
-            We're currently updating our categories. Check back soon!
+            We&apos;re currently updating our categories. Check back soon!
           </p>
           <Button asChild>
             <Link href="/shop">Browse All Products</Link>

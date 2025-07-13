@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Product, ProductQueryParams } from '@/types/api';
+import { Product } from '@/types/api';
 import { productService } from '@/services/Api/productService';
 import { toast } from 'react-toastify';
 import ProductGrid from './ProductGrid';
@@ -45,11 +45,43 @@ const ShopPage: React.FC = () => {
   useEffect(() => {
     fetchProducts();
   }, []);
+  
+ const applyFiltersAndSort = useCallback(() => {
+    let filtered = [...products];
+
+    // Apply search filter
+    if (filters.searchQuery) {
+      const query = filters.searchQuery.toLowerCase();
+      filtered = filtered.filter(product =>
+        product.title.toLowerCase().includes(query) ||
+        product.description.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query)
+      );
+    }
+
+    // Apply category filter
+    if (filters.category) {
+      filtered = filtered.filter(product => product.category === filters.category);
+    }
+
+    // Apply price range filter
+    filtered = filtered.filter(product =>
+      product.price >= filters.minPrice && product.price <= filters.maxPrice
+    );
+
+    // Apply sorting
+    filtered = productService.sortProducts(filtered, filters.sortBy, filters.sortOrder);
+
+    setFilteredProducts(filtered);
+    setTotalProducts(filtered.length);
+    setTotalPages(Math.ceil(filtered.length / itemsPerPage));
+    setCurrentPage(1); // Reset to first page when filters change
+  }, [products, filters]);
 
   // Apply filters and sorting when products or filters change
   useEffect(() => {
     applyFiltersAndSort();
-  }, [products, filters]);
+  }, [ products, filters, applyFiltersAndSort]);
 
   const fetchProducts = async () => {
     try {
@@ -83,37 +115,7 @@ const ShopPage: React.FC = () => {
     }
   };
 
-  const applyFiltersAndSort = () => {
-    let filtered = [...products];
-
-    // Apply search filter
-    if (filters.searchQuery) {
-      const query = filters.searchQuery.toLowerCase();
-      filtered = filtered.filter(product =>
-        product.title.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query) ||
-        product.category.toLowerCase().includes(query)
-      );
-    }
-
-    // Apply category filter
-    if (filters.category) {
-      filtered = filtered.filter(product => product.category === filters.category);
-    }
-
-    // Apply price range filter
-    filtered = filtered.filter(product =>
-      product.price >= filters.minPrice && product.price <= filters.maxPrice
-    );
-
-    // Apply sorting
-    filtered = productService.sortProducts(filtered, filters.sortBy, filters.sortOrder);
-
-    setFilteredProducts(filtered);
-    setTotalProducts(filtered.length);
-    setTotalPages(Math.ceil(filtered.length / itemsPerPage));
-    setCurrentPage(1); // Reset to first page when filters change
-  };
+  
 
   // Get products for current page
   const paginatedProducts = useMemo(() => {

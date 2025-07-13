@@ -9,16 +9,12 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
-import { 
-  ShoppingCart, 
-  Heart, 
-  Share2, 
-  Star, 
-  Minus, 
-  Plus,
-  Truck,
-  Shield,
-  RotateCcw
+import {
+  ShoppingCart,
+  Heart,
+  Star,
+  Minus,
+  Plus
 } from 'lucide-react';
 import { toast } from 'react-toastify';
 import SocialShare from './SocialShare';

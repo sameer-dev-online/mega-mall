@@ -47,8 +47,8 @@ const AdminLoginPage: React.FC = () => {
       } else {
         setError(response.message || 'Login failed');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred during login';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred during login';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {

@@ -98,7 +98,7 @@ const FeaturedProducts: React.FC<FeaturedProductsProps> = ({
             </div>
             <h3 className="text-xl font-semibold">No Featured Products</h3>
             <p className="text-muted-foreground">
-              We're currently updating our featured products. Check back soon!
+              We&apos;re currently updating our featured products. Check back soon!
             </p>
             <Button asChild>
               <Link href="/shop">Browse All Products</Link>

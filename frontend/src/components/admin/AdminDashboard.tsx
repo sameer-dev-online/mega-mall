@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { adminService } from '@/services/Api';
 import { DashboardStats } from '@/types/api';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -70,8 +71,8 @@ const AdminDashboard: React.FC = () => {
         } else {
           setError(response.message || 'Failed to load dashboard data');
         }
-      } catch (error: any) {
-        const errorMessage = error.response?.data?.message || 'An error occurred while loading dashboard';
+      } catch (error) {
+        const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while loading dashboard';
         setError(errorMessage);
         toast.error(errorMessage);
       } finally {
@@ -163,7 +164,7 @@ const AdminDashboard: React.FC = () => {
       <div>
         <h1 className="text-3xl font-bold text-foreground">Dashboard Overview</h1>
         <p className="text-muted-foreground">
-          Welcome back! Here's what's happening with your store today.
+          Welcome back! Here&apos;s what&apos;s happening with your store today.
         </p>
       </div>
 
@@ -205,10 +206,12 @@ const AdminDashboard: React.FC = () => {
           <CardContent>
             <div className="flex items-center space-x-4">
               {stats.topSellingProduct.images?.[0]?.url && (
-                <img
+                <Image
                   src={stats.topSellingProduct.images[0].url}
                   alt={stats.topSellingProduct.title}
-                  className="w-16 h-16 object-cover rounded-lg"
+                  width={64}
+                  height={64}
+                  className="object-cover rounded-lg"
                 />
               )}
               <div className="flex-1">

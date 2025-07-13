@@ -82,7 +82,7 @@ const ProductTabs: React.FC<ProductTabsProps> = ({
                 </ul>
               </div>
               <div>
-                <h4 className="font-medium mb-2">What's Included</h4>
+                <h4 className="font-medium mb-2">What&apos;s Included</h4>
                 <ul className="space-y-1 text-sm text-muted-foreground">
                   <li>• 1x {product.title}</li>
                   <li>• User manual</li>

@@ -24,7 +24,7 @@ const EnhancedProductCard: React.FC<EnhancedProductCardProps> = ({
   const [quantity, setQuantity] = useState(1);
   const [isHovered, setIsHovered] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
-  const [showQuickView, setShowQuickView] = useState(false);
+
   const { addToCart, isUpdating } = useCart();
   const router = useRouter();
 
@@ -35,11 +35,7 @@ const EnhancedProductCard: React.FC<EnhancedProductCardProps> = ({
     }
   };
 
-  const handleQuickView = () => {
-    setShowQuickView(true);
-    // TODO: Implement quick view modal
-    toast.info('Quick view feature coming soon!');
-  };
+ 
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -149,7 +145,6 @@ const EnhancedProductCard: React.FC<EnhancedProductCardProps> = ({
               size="icon"
               variant="secondary"
               className="w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-md"
-              onClick={handleQuickView}
             >
               <Eye className="w-4 h-4" />
             </Button>

@@ -28,7 +28,7 @@ const NewsletterSection: React.FC = () => {
       setIsSubscribed(true);
       setEmail('');
       toast.success('Successfully subscribed to our newsletter!');
-    } catch (error) {
+    } catch {
       toast.error('Failed to subscribe. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -67,7 +67,7 @@ const NewsletterSection: React.FC = () => {
         <div className="space-y-2">
           <h2 className="text-3xl md:text-4xl font-bold">Welcome to the Family!</h2>
           <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto">
-            Thank you for subscribing! You'll receive your first exclusive offer within 24 hours.
+            Thank you for subscribing! You&apos;ll receive your first exclusive offer within 24 hours.
           </p>
         </div>
         <div className="flex flex-wrap justify-center gap-4 text-sm text-primary-foreground/70">

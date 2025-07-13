@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -34,7 +35,7 @@ const TestimonialsSection: React.FC = () => {
       name: 'Michael Chen',
       location: 'Toronto, Canada',
       rating: 5,
-      comment: 'I\'ve been shopping here for over a year now, and I\'m consistently impressed with the quality and variety. The free shipping and easy returns make it my go-to store.',
+      comment: 'I&apos;ve been shopping here for over a year now, and I&apos;m consistently impressed with the quality and variety. The free shipping and easy returns make it my go-to store.',
       product: 'Gaming Laptop',
     },
     {
@@ -42,7 +43,7 @@ const TestimonialsSection: React.FC = () => {
       name: 'Emma Rodriguez',
       location: 'London, UK',
       rating: 5,
-      comment: 'The best online shopping experience I\'ve ever had. Fast delivery, excellent packaging, and the product quality exceeded my expectations. Highly recommended!',
+      comment: 'The best online shopping experience I&apos;ve ever had. Fast delivery, excellent packaging, and the product quality exceeded my expectations. Highly recommended!',
       product: 'Designer Handbag',
     },
     {
@@ -133,7 +134,7 @@ const TestimonialsSection: React.FC = () => {
           <Quote className="w-6 h-6 text-primary scale-x-[-1]" />
         </div>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Don't just take our word for it. Here's what our satisfied customers 
+          Don&apos;t just take our word for it. Here&apos;s what our satisfied customers
           have to say about their shopping experience with us.
         </p>
       </motion.div>
@@ -185,7 +186,7 @@ const TestimonialsSection: React.FC = () => {
 
                     {/* Comment */}
                     <blockquote className="text-muted-foreground leading-relaxed">
-                      "{testimonial.comment}"
+                      &ldquo;{testimonial.comment}&rdquo;
                     </blockquote>
 
                     {/* Product */}
@@ -199,10 +200,12 @@ const TestimonialsSection: React.FC = () => {
                     <div className="flex items-center gap-3 pt-4 border-t">
                       <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center">
                         {testimonial.avatar ? (
-                          <img
+                          <Image
                             src={testimonial.avatar}
                             alt={testimonial.name}
-                            className="w-full h-full rounded-full object-cover"
+                            width={48}
+                            height={48}
+                            className="rounded-full object-cover"
                           />
                         ) : (
                           <User className="w-6 h-6 text-muted-foreground" />

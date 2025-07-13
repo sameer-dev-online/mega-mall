@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { adminService } from '@/services/Api';
 import { User, Order, ApiResponse, GetAllUsers } from '@/types/api';
 import { Button } from '@/components/ui/button';
@@ -33,9 +34,7 @@ import {
   DropdownMenuTrigger 
 } from '@/components/ui/dropdown-menu';
 
-interface CustomerManagementProps {}
-
-const CustomerManagement: React.FC<CustomerManagementProps> = () => {
+const CustomerManagement: React.FC = () => {
   const [customers, setCustomers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -57,8 +56,8 @@ const CustomerManagement: React.FC<CustomerManagementProps> = () => {
       } else {
         setError(response.message || 'Failed to load customers');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while loading customers';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while loading customers';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -82,9 +81,9 @@ const CustomerManagement: React.FC<CustomerManagementProps> = () => {
         setCustomerOrders([]);
         toast.error(response.message || 'Failed to load customer orders');
       }
-    } catch (error: any) {
+    } catch (error) {
       setCustomerOrders([]);
-      const errorMessage = error.response?.data?.message || 'An error occurred while loading customer orders';
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while loading customer orders';
       toast.error(errorMessage);
     } finally {
       setLoadingOrders(false);
@@ -112,8 +111,8 @@ const CustomerManagement: React.FC<CustomerManagementProps> = () => {
       } else {
         toast.error(response.message || 'Failed to send message');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while sending message';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while sending message';
       toast.error(errorMessage);
     }
   };
@@ -318,10 +317,12 @@ const CustomerCard: React.FC<CustomerCardProps> = ({ customer, onView, onSendMes
           <div className="flex items-center space-x-4">
             <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
               {customer.avatar ? (
-                <img
+                <Image
                   src={customer.avatar}
                   alt={customer.fullName}
-                  className="w-12 h-12 rounded-full object-cover"
+                  width={48}
+                  height={48}
+                  className="rounded-full object-cover"
                 />
               ) : (
                 <Users className="h-6 w-6 text-primary" />
@@ -456,10 +457,12 @@ const CustomerDetails: React.FC<CustomerDetailsProps> = ({
             <div className="flex items-center space-x-4">
               <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                 {customer.avatar ? (
-                  <img
+                  <Image
                     src={customer.avatar}
                     alt={customer.fullName}
-                    className="w-16 h-16 rounded-full object-cover"
+                    width={64}
+                    height={64}
+                    className="rounded-full object-cover"
                   />
                 ) : (
                   <Users className="h-8 w-8 text-primary" />

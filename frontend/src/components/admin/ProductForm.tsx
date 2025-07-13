@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 import { adminService } from '@/services/Api';
 import { Product, ProductUploadData, ProductUpdateData, ApiResponse } from '@/types/api';
 import { Button } from '@/components/ui/button';
@@ -163,8 +164,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSuccess }
       } else {
         toast.error(response.message || 'Failed to generate suggestions');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while generating suggestions';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while generating suggestions';
       toast.error(errorMessage);
     } finally {
       setIsSuggesting(false);
@@ -271,8 +272,8 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSuccess }
           setError(response.message || 'Failed to create product');
         }
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message ||
         `An error occurred while ${isEditing ? 'updating' : 'creating'} the product`;
       setError(errorMessage);
       toast.error(errorMessage);
@@ -354,9 +355,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSuccess }
 
                   {suggestionPreview && (
                     <div className="relative">
-                      <img
+                      <Image
                         src={suggestionPreview}
                         alt="Suggestion preview"
+                        width={400}
+                        height={128}
                         className="w-full h-32 object-cover rounded-lg border border-border"
                       />
                       <Button
@@ -586,9 +589,11 @@ const ProductForm: React.FC<ProductFormProps> = ({ product, onClose, onSuccess }
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {imagePreviews.map((preview, index) => (
                   <div key={index} className="relative group">
-                    <img
+                    <Image
                       src={preview}
                       alt={`Preview ${index + 1}`}
+                      width={200}
+                      height={128}
                       className="w-full h-32 object-cover rounded-lg border border-border"
                     />
                     <Button

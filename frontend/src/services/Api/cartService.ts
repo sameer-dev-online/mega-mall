@@ -1,7 +1,6 @@
 import axiosInstance from '@/lib/axious';
 import {
   ApiResponse,
-  Cart,
   CartItem,
   AddToCartData,
   UpdateQuantityData

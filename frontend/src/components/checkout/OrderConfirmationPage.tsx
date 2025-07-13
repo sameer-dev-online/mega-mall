@@ -9,15 +9,14 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { orderService } from '@/services/Api';
-import {ORDER_STATUSES } from '@/types/order';
+
 import {Order} from "@/types/api"
 
-import { 
-  CheckCircle, 
-  Package, 
-  Truck, 
-  MapPin, 
-  Calendar, 
+import {
+  CheckCircle,
+  Package,
+  Truck,
+  MapPin,
   CreditCard,
   Phone,
   Mail,
@@ -53,8 +52,7 @@ const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({ orderId }
         } else {
           setError('Failed to fetch order details');
         }
-      } catch (error: any) {
-        // console.error('Error fetching order:', error);
+      } catch {
         setError('Failed to load order details');
       } finally {
         setIsLoading(false);
@@ -140,7 +138,7 @@ const OrderConfirmationPage: React.FC<OrderConfirmationPageProps> = ({ orderId }
             <CheckCircle className="w-8 h-8 text-green-500 mr-3" />
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Order Confirmed!</h1>
-              <p className="text-gray-600">Thank you for your order. We'll send you updates via email.</p>
+              <p className="text-gray-600">Thank you for your order. We&apos;ll send you updates via email.</p>
             </div>
           </div>
           

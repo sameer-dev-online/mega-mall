@@ -2,11 +2,12 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Product } from '@/types/api';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { EnhancedProductCard } from '@/components/shop/EnhancedProductCard';
+
 import { ArrowRight, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -19,7 +20,6 @@ interface RelatedProductsProps {
 const RelatedProducts: React.FC<RelatedProductsProps> = ({
   products,
   isLoading,
-  currentProductId,
 }) => {
   if (isLoading) {
     return (
@@ -70,7 +70,7 @@ const RelatedProducts: React.FC<RelatedProductsProps> = ({
               No related products found
             </h3>
             <p className="text-muted-foreground max-w-md mb-4">
-              We couldn't find any related products at the moment. Check out our full catalog instead.
+              We couldn&apos;t find any related products at the moment. Check out our full catalog instead.
             </p>
             <Button asChild>
               <Link href="/shop">
@@ -175,10 +175,11 @@ const RelatedProductCard: React.FC<{ product: Product }> = ({ product }) => {
         {/* Product Image */}
         <div className="relative aspect-square bg-muted overflow-hidden">
           {product.images && product.images.length > 0 ? (
-            <img
+            <Image
               src={product.images[0].url}
               alt={product.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">

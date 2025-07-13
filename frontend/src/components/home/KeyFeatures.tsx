@@ -85,8 +85,8 @@ const KeyFeatures: React.FC = () => {
       >
         <h2 className="text-3xl md:text-4xl font-bold">Why Choose Mega Mall?</h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          We're committed to providing you with the best shopping experience possible. 
-          Here's what makes us different from the rest.
+          We&apos;re committed to providing you with the best shopping experience possible.
+          Here&apos;s what makes us different from the rest.
         </p>
       </motion.div>
 

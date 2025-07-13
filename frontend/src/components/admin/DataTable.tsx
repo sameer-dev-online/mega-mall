@@ -4,11 +4,11 @@ import React, { useState, useMemo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+
 import { Skeleton } from '@/components/ui/skeleton';
 import {
   Search,
-  Filter,
+
   ChevronUp,
   ChevronDown,
   ChevronLeft,
@@ -29,7 +29,7 @@ export interface Column<T> {
   title: string;
   sortable?: boolean;
   filterable?: boolean;
-  render?: (value: any, row: T, index: number) => React.ReactNode;
+  render?: (value: unknown, row: T, index: number) => React.ReactNode;
   width?: string;
   align?: 'left' | 'center' | 'right';
 }
@@ -59,7 +59,7 @@ export interface DataTableProps<T> {
   emptyIcon?: React.ComponentType<{ className?: string }>;
 }
 
-function DataTable<T extends Record<string, any>>({
+function DataTable<T extends Record<string, unknown>>({
   data,
   columns,
   title,
@@ -92,7 +92,7 @@ function DataTable<T extends Record<string, any>>({
         if (column.filterable === false) return false;
 
         const value = typeof column.key === 'string' && column.key.includes('.')
-          ? column.key.split('.').reduce((obj: any, key: string) => obj?.[key], row)
+          ? column.key.split('.').reduce((obj: Record<string, unknown>, key: string) => obj?.[key] as Record<string, unknown>, row as Record<string, unknown>)
           : row[column.key as keyof T];
 
         return String(value || '').toLowerCase().includes(searchQuery.toLowerCase());
@@ -106,10 +106,10 @@ function DataTable<T extends Record<string, any>>({
 
     return [...filteredData].sort((a, b) => {
       const aValue = typeof sortConfig.key === 'string' && sortConfig.key.includes('.')
-        ? sortConfig.key.split('.').reduce((obj: any, key: string) => obj?.[key], a)
+        ? sortConfig.key.split('.').reduce((obj: Record<string, unknown>, key: string) => obj?.[key] as Record<string, unknown>, a as Record<string, unknown>)
         : a[sortConfig.key as keyof T];
       const bValue = typeof sortConfig.key === 'string' && sortConfig.key.includes('.')
-        ? sortConfig.key.split('.').reduce((obj: any, key: string) => obj?.[key], b)
+        ? sortConfig.key.split('.').reduce((obj: Record<string, unknown>, key: string) => obj?.[key] as Record<string, unknown>, b as Record<string, unknown>)
         : b[sortConfig.key as keyof T];
 
       // Handle null/undefined values
@@ -164,7 +164,7 @@ function DataTable<T extends Record<string, any>>({
   // Get cell value
   const getCellValue = (row: T, column: Column<T>, index: number) => {
     const value = typeof column.key === 'string' && column.key.includes('.')
-      ? column.key.split('.').reduce((obj: any, key: string) => obj?.[key], row)
+      ? column.key.split('.').reduce((obj: Record<string, unknown>, key: string) => obj?.[key] as Record<string, unknown>, row as Record<string, unknown>)
       : row[column.key as keyof T];
 
     if (column.render) {

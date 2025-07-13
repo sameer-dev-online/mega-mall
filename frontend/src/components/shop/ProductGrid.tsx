@@ -43,7 +43,7 @@ const ProductGrid: React.FC<ProductGridProps> = ({
           No products found
         </h3>
         <p className="text-muted-foreground max-w-md">
-          We couldn't find any products matching your criteria. Try adjusting your filters or search terms.
+          We couldn&apos;t find any products matching your criteria. Try adjusting your filters or search terms.
         </p>
       </div>
     );

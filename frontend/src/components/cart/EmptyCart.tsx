@@ -72,7 +72,7 @@ const EmptyCart: React.FC<EmptyCartProps> = ({ onContinueShopping }) => {
                 Your cart is empty
               </h2>
               <p className="text-sm sm:text-base text-gray-600 max-w-md mx-auto">
-                Looks like you haven't added any items to your cart yet.
+                Looks like you haven&apos;t added any items to your cart yet.
                 Start shopping to fill it up with amazing products!
               </p>
             </div>

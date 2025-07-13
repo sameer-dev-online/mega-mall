@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
@@ -12,23 +11,22 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { orderService } from '@/services/Api';
 import { useAuth } from '@/contexts/AuthContext';
 import {Order} from "@/types/api"
-import { 
-  Package, 
-  Search, 
-  Filter, 
-  Calendar, 
-  Eye, 
+import {
+  Package,
+  Search,
+  Filter,
+  Eye,
   Download,
   AlertCircle,
   ShoppingBag,
   Truck,
   CheckCircle,
-  Clock,
-  X
+  X,
+  Calendar
 } from 'lucide-react';
 
 const OrderHistoryPage: React.FC = () => {
-  const router = useRouter();
+
   const { isAuthenticated } = useAuth();
   const [orders, setOrders] = useState<Order[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
@@ -55,7 +53,7 @@ const OrderHistoryPage: React.FC = () => {
         } else {
           setError('Failed to fetch orders');
         }
-      } catch (error: any) {
+      } catch (error) {
         console.error('Error fetching orders:', error);
         setError('Failed to load orders');
       } finally {

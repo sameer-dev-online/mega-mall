@@ -180,7 +180,7 @@ const ShopHeader: React.FC<ShopHeaderProps> = ({
               className="flex items-center gap-1 cursor-pointer hover:bg-secondary/80"
               onClick={() => onFilterChange({ searchQuery: '' })}
             >
-              Search: "{filters.searchQuery}"
+              Search: &ldquo;{filters.searchQuery}&rdquo;
               <X className="w-3 h-3" />
             </Badge>
           )}

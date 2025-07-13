@@ -19,7 +19,7 @@ export default function ProductNotFound() {
               Product Not Found
             </h1>
             <p className="text-muted-foreground max-w-md">
-              Sorry, we couldn't find the product you're looking for. 
+              Sorry, we couldn&apos;t find the product you&apos;re looking for.
               It may have been removed or the link might be incorrect.
             </p>
           </div>

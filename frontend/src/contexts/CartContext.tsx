@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import {  CartItem, ApiResponse } from '@/types/api';
 import { cartService } from '@/services/Api';
 import { useAuth } from './AuthContext';
@@ -48,16 +48,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   // Calculate item count
   const itemCount = cart?.length || 0;
 
-  // Fetch cart items when user is authenticated
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      refreshCart();
-    } else {
-      setCart(null);
-    }
-  }, [isAuthenticated, user]);
-
-  const refreshCart = async () => {
+  const refreshCart = useCallback(async () => {
     if (!isAuthenticated) return;
 
     try {
@@ -66,7 +57,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
       if (response.success && response.data) {
         setCart(response.data);
       }
-    } catch (error) {
+    } catch {
       // const axiosError = error as AxiosError<ApiResponse>;
       // console.error('Error fetching cart:', axiosError);
       // Don't show toast for initial cart fetch failures
@@ -75,7 +66,18 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isAuthenticated]);
+
+  // Fetch cart items when user is authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      refreshCart();
+    } else {
+      setCart(null);
+    }
+  }, [isAuthenticated, user,refreshCart]);
+
+  
 
   const addToCart = async (productId: string, quantity: number): Promise<boolean> => {
     if (!isAuthenticated) {

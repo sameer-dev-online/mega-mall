@@ -5,7 +5,7 @@ import { adminService, orderService } from '@/services/Api';
 import { ApiResponse, GetAllOrders, Order, UpdateDeliveryStatusData } from '@/types/api';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Alert } from '@/components/ui/alert';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -33,9 +33,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import OrderDetails from './OrderDetails';
 
-interface OrderManagementProps {}
-
-const OrderManagement: React.FC<OrderManagementProps> = () => {
+const OrderManagement: React.FC = () => {
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -58,8 +56,8 @@ const OrderManagement: React.FC<OrderManagementProps> = () => {
       } else {
         setError(response.message || 'Failed to load orders');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while loading orders';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while loading orders';
       setError(errorMessage);
       toast.error(errorMessage);
     } finally {
@@ -87,8 +85,8 @@ const OrderManagement: React.FC<OrderManagementProps> = () => {
       } else {
         toast.error(response.message || 'Failed to update order status');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while updating order status';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while updating order status';
       toast.error(errorMessage);
     }
   };
@@ -108,8 +106,8 @@ const OrderManagement: React.FC<OrderManagementProps> = () => {
       } else {
         toast.error(response.message || 'Failed to delete order');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while deleting order';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while deleting order';
       toast.error(errorMessage);
     }
   };
@@ -151,35 +149,7 @@ const OrderManagement: React.FC<OrderManagementProps> = () => {
     }).format(amount);
   };
 
-  const getStatusIcon = (status: Order['status']) => {
-    switch (status) {
-      case 'pending':
-        return <Clock className="h-4 w-4" />;
-      case 'shipped':
-        return <Truck className="h-4 w-4" />;
-      case 'delivered':
-        return <CheckCircle className="h-4 w-4" />;
-      case 'cancelled':
-        return <XCircle className="h-4 w-4" />;
-      default:
-        return <Package className="h-4 w-4" />;
-    }
-  };
 
-  const getStatusColor = (status: Order['status']) => {
-    switch (status) {
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'shipped':
-        return 'bg-blue-100 text-blue-800';
-      case 'delivered':
-        return 'bg-green-100 text-green-800';
-      case 'cancelled':
-        return 'bg-red-100 text-red-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
 
   // Show order details if selected
   if (showOrderDetails && selectedOrder) {

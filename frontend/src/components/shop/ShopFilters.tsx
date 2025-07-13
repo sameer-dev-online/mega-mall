@@ -259,7 +259,7 @@ const ShopFilters: React.FC<ShopFiltersProps> = ({
                   className="flex items-center gap-1 cursor-pointer"
                   onClick={() => onFilterChange({ searchQuery: '' })}
                 >
-                  "{filters.searchQuery}"
+                  &ldquo;{filters.searchQuery}&rdquo;
                   <X className="w-3 h-3" />
                 </Badge>
               )}

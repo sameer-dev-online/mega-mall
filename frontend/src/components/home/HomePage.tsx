@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, memo, useCallback } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Product } from '@/types/api';
 import { productService } from '@/services/Api/productService';
 import { toast } from 'react-toastify';

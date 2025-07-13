@@ -6,14 +6,15 @@ import CheckoutSkeleton from '@/components/checkout/CheckoutSkeleton';
 import ErrorBoundary from '@/components/shop/ErrorBoundary';
 
 interface OrderConfirmationProps {
-  params: {
+  params: Promise<{
     orderId: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({ params }: OrderConfirmationProps): Promise<Metadata> {
+  const { orderId } = await params;
   return {
-    title: `Order Confirmation - ${params.orderId} | Mega Mall`,
+    title: `Order Confirmation - ${orderId} | Mega Mall`,
     description: 'Your order has been successfully placed. View your order details and tracking information.',
     robots: {
       index: false,
@@ -22,15 +23,17 @@ export async function generateMetadata({ params }: OrderConfirmationProps): Prom
   };
 }
 
-export default function OrderConfirmation({ params }: OrderConfirmationProps) {
-  if (!params.orderId) {
+export default async function OrderConfirmation({ params }: OrderConfirmationProps) {
+  const { orderId } = await params;
+
+  if (!orderId) {
     notFound();
   }
 
   return (
     <ErrorBoundary>
       <Suspense fallback={<CheckoutSkeleton />}>
-        <OrderConfirmationPage orderId={params.orderId} />
+        <OrderConfirmationPage orderId={orderId} />
       </Suspense>
     </ErrorBoundary>
   );

@@ -35,7 +35,7 @@ const AboutPage = () => {
         <h1 className="text-4xl md:text-5xl font-bold mb-4">About Mega Mall</h1>
         <p className="text-muted-foreground text-lg">
           Mega Mall is your one-stop destination for everything fashion, tech, lifestyle & more.
-          We're committed to providing the best shopping experience to people across the globe.
+          We&apos;re committed to providing the best shopping experience to people across the globe.
         </p>
       </motion.div>
 

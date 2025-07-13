@@ -14,7 +14,7 @@ import OrderSummary from './OrderSummary';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { orderService } from '@/services/Api';
-import { ShippingAddress, PaymentMethod, PAYMENT_METHODS, CreateOrderRequest } from '@/types/order';
+import { ShippingAddress, PaymentMethod, PAYMENT_METHODS } from '@/types/order';
 import { PlaceOrderData } from '@/types/api';
 import { toast } from 'react-toastify';
 import { 
@@ -26,12 +26,12 @@ import {
   AlertCircle,
   Loader2 
 } from 'lucide-react';
-import { cartService } from '@/services/Api/cartService';
+
 
 const CheckoutPage: React.FC = () => {
   const router = useRouter();
   const { cart, getCartCalculations, clearCart } = useCart();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
   const [customerInfo, setCustomerInfo] = useState<ShippingAddress | null>(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<PaymentMethod>(PAYMENT_METHODS[0]);
   const [isFormValid, setIsFormValid] = useState(false);
@@ -122,9 +122,9 @@ const CheckoutPage: React.FC = () => {
       } else {
         throw new Error(response.message || 'Failed to place order');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Order placement error:', error);
-      const errorMessage = error.response?.data?.message || error.message || 'Failed to place order. Please try again.';
+      const errorMessage = (error as { response?: { data?: { message?: string } }; message?: string }).response?.data?.message || (error as Error).message || 'Failed to place order. Please try again.';
       setOrderError(errorMessage);
       toast.error(errorMessage);
     } finally {

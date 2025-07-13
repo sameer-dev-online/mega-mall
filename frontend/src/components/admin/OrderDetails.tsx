@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Order, UpdateDeliveryStatusData } from '@/types/api';
 import { adminService } from '@/services/Api';
 import { Button } from '@/components/ui/button';
@@ -105,8 +106,8 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onBack, onOrderUpdat
       } else {
         toast.error(response.message || 'Failed to update order status');
       }
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'An error occurred while updating order status';
+    } catch (error) {
+      const errorMessage = (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'An error occurred while updating order status';
       toast.error(errorMessage);
     } finally {
       setIsUpdatingStatus(false);
@@ -279,10 +280,12 @@ const OrderDetails: React.FC<OrderDetailsProps> = ({ order, onBack, onOrderUpdat
             {order.orderItems.map((item, index) => (
               <div key={index} className="flex items-center space-x-4 p-4 border border-border rounded-lg">
                 {item.product.images?.[0]?.url ? (
-                  <img
+                  <Image
                     src={item.product.images[0]?.url}
                     alt={item.product.title}
-                    className="w-16 h-16 object-cover rounded-lg"
+                    width={64}
+                    height={64}
+                    className="object-cover rounded-lg"
                   />
                 ) : (
                   <div className="w-16 h-16 bg-muted rounded-lg flex items-center justify-center">
