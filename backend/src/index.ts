@@ -18,5 +18,5 @@ dbConnection()
     if (error instanceof Error) {
       console.log(error.message || "Something went wrong during DB connection")
     return error || "Something went wrong during DB connection";
-    }
+    } 
   });
