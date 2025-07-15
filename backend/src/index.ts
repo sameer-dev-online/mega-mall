@@ -8,14 +8,6 @@ import "./queues/email.worker.js";
 
 const port = process.env.PORT || 5000;
 
-// // Add global uncaught exception handler
-// process.on('uncaughtException', (err, origin) => {
-//   console.error('Uncaught Exception:');
-//   console.error(err);
-//   console.error(`Exception origin: ${origin}`);
-//   process.exit(1);
-// });
-
 dbConnection()
   .then(() => {
     app.listen(port, () => {
