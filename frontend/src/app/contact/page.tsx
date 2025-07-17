@@ -1,12 +1,12 @@
-
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation"; // 
 import { toast } from "react-toastify";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
 const ContactPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -17,9 +17,8 @@ const ContactPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-     
-       toast.success("Message sent successfully.");
-        router.push("/");
+      toast.success("Message sent successfully.");
+      router.push("/"); 
     } catch (error) {
       toast.error("Something went wrong. Please try again later.");
     }
