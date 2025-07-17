@@ -2,12 +2,10 @@
 
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { motion } from 'framer-motion';
 import { ArrowRight, ShoppingBag, Star, Users, Shield } from 'lucide-react';
-import heroImage from "../../../public/images/hero-section-image.png";
 
 const HeroSection: React.FC = () => {
   const stats = [
@@ -21,11 +19,11 @@ const HeroSection: React.FC = () => {
     <section className="relative min-h-[600px] lg:min-h-[700px] pt-[20px] bg-gradient-to-br from-primary/5 via-background to-secondary/5 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5" />
-      
+
       {/* Background Shapes */}
       <div className="absolute top-20 right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
       <div className="absolute bottom-20 left-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
-      
+
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[600px] lg:min-h-[700px]">
           {/* Left Content */}
@@ -35,7 +33,6 @@ const HeroSection: React.FC = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="space-y-8"
           >
-            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -46,7 +43,6 @@ const HeroSection: React.FC = () => {
               </Badge>
             </motion.div>
 
-            {/* Main Headline */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -59,12 +55,11 @@ const HeroSection: React.FC = () => {
                 Destination
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed">
-                Discover thousands of premium products at unbeatable prices. 
+                Discover thousands of premium products at unbeatable prices.
                 Shop with confidence with our secure payment, free shipping, and easy returns.
               </p>
             </motion.div>
 
-            {/* Value Propositions */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -85,7 +80,6 @@ const HeroSection: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* CTA Buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -98,10 +92,8 @@ const HeroSection: React.FC = () => {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>
-              
             </motion.div>
 
-            {/* Stats */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -123,59 +115,63 @@ const HeroSection: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Content - Hero Image */}
+          {/* Right Content - Testimonials & Trust */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="relative"
+            className="space-y-8"
           >
-            <div className="relative aspect-square max-w-lg mx-auto">
-              {/* Main Hero Image */}
-              <div className="relative w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-primary/20 to-secondary/20">
-                {/* Placeholder for hero image - you can replace with actual image */}
-                <Image
-                  src={heroImage}
-                  alt="Hero Image"
-                  fill
-                  className="object-cover"
-                />
-               
+            {/* Testimonial Card */}
+            <div className="bg-white dark:bg-card p-6 rounded-xl shadow-lg space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 bg-muted rounded-full flex items-center justify-center text-xl font-bold text-primary">
+                  A
+                </div>
+                <div>
+                  <h4 className="text-base font-semibold">Ayesha M.</h4>
+                  <p className="text-sm text-muted-foreground">Karachi, Pakistan</p>
+                </div>
               </div>
+              <p className="text-muted-foreground text-sm italic">
+                “I’ve been shopping here for months and every order has been smooth and satisfying. The products are top-notch and delivery is always on time!”
+              </p>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                ))}
+              </div>
+            </div>
 
-              {/* Floating Elements */}
-              <motion.div
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -top-4 -right-4 bg-white dark:bg-card rounded-xl shadow-lg p-4"
-              >
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 bg-green-500 rounded-full" />
-                  <span className="text-sm font-medium">Free Shipping</span>
-                </div>
-              </motion.div>
+            {/* Trust Badges */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-blue-500" />
+                <span className="text-sm text-muted-foreground">Secure Checkout</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <ShoppingBag className="w-5 h-5 text-green-500" />
+                <span className="text-sm text-muted-foreground">Genuine Products</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-purple-500" />
+                <span className="text-sm text-muted-foreground">Trusted by 50K+</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <span className="text-sm text-muted-foreground">Top Rated Store</span>
+              </div>
+            </div>
 
-              <motion.div
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                className="absolute -bottom-4 -left-4 bg-white dark:bg-card rounded-xl shadow-lg p-4"
-              >
-                <div className="flex items-center gap-2">
-                  <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                  <span className="text-sm font-medium">4.9 Rating</span>
-                </div>
-              </motion.div>
-
-              <motion.div
-                animate={{ x: [0, 10, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                className="absolute top-1/2 -left-8 bg-white dark:bg-card rounded-xl shadow-lg p-4"
-              >
-                <div className="flex items-center gap-2">
-                  <Shield className="w-4 h-4 text-blue-500" />
-                  <span className="text-sm font-medium">Secure</span>
-                </div>
-              </motion.div>
+            {/* Featured Brands */}
+            <div className="pt-4">
+              <h4 className="text-sm font-semibold text-muted-foreground mb-2">Featured Brands</h4>
+              <div className="flex items-center gap-4">
+                <span className="text-lg font-bold text-primary">Nike</span>
+                <span className="text-lg font-bold text-primary">Apple</span>
+                <span className="text-lg font-bold text-primary">Adidas</span>
+                <span className="text-lg font-bold text-primary">Samsung</span>
+              </div>
             </div>
           </motion.div>
         </div>
@@ -188,13 +184,9 @@ const HeroSection: React.FC = () => {
           preserveAspectRatio="none"
           className="w-full h-12 fill-background"
         >
-          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-            opacity=".25"
-          />
-          <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-            opacity=".5"
-          />
-          <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" />
+          <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28..." opacity=".25" />
+          <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05..." opacity=".5" />
+          <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57..." />
         </svg>
       </div>
     </section>
