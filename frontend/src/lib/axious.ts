@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'http://13.49.145.51:5000/api', // set in .env
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.sameer-dev.online/api', // set in .env
   headers: {
     'Content-Type': 'application/json',
   },
