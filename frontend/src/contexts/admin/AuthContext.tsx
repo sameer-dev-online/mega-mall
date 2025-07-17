@@ -61,8 +61,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     checkAuthStatus();
   }, []);
 
-  const login = (admin: Admin, access_token: string) => {
-    localStorage.setItem('access_token', access_token);
+  const login = (admin: Admin, accessToken: string) => {
+    localStorage.setItem('access_token', accessToken);
     setAdmin(admin);
   };
 

@@ -17,7 +17,7 @@ axiosInstance.interceptors.request.use(
 
     // Get appropriate token based on request type
     const token = isAdminRequest
-      ? localStorage.getItem('admin_token')
+      ? localStorage.getItem('access_token')
       : localStorage.getItem('token');
 
     if (token) {
@@ -42,7 +42,7 @@ axiosInstance.interceptors.response.use(
 
       if (isAdminRequest) {
         // Handle admin unauthorized access
-        localStorage.removeItem('admin_token');
+        localStorage.removeItem('access_token');
         window.location.href = '/admin';
       } else {
         // Handle user unauthorized access

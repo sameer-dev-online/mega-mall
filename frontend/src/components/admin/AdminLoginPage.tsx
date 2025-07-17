@@ -41,9 +41,9 @@ const AdminLoginPage: React.FC = () => {
       const response = await adminService.login(formData);
       
       if (response.success && response.data) {
-        const { admin, access_token } = response.data as { admin: Admin; access_token: string };
-        login(admin, access_token);
-        toast.success('Login successful!');
+        const { admin, accessToken } = response.data as { admin: Admin; accessToken: string };
+        login(admin, accessToken);
+        toast.success('Login successful! Redirecting to dashboard...');
       } else {
         setError(response.message || 'Login failed');
       }
