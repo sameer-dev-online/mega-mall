@@ -9,7 +9,7 @@ interface AuthContextType {
   admin: Admin | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  login: (admin: Admin, token: string) => void;
+  login: (admin: Admin, accessToken: string) => void;
   logout: () => void;
   
 }
@@ -37,7 +37,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Check if user is logged in on app start
   useEffect(() => {
     const checkAuthStatus = async () => {
-      const token = localStorage.getItem('access_token');
+      const token = localStorage.getItem('accessToken');
       
       if (token) {
         try {
@@ -49,7 +49,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           const axiousError = error as AxiosError<ApiResponse>;
           if(axiousError.response) {
             console.error('Error checking auth status:', axiousError.response.data.message);
-            localStorage.removeItem('access_token');
+            localStorage.removeItem('accessToken');
 
           }
         }
@@ -62,7 +62,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   }, []);
 
   const login = (admin: Admin, accessToken: string) => {
-    localStorage.setItem('access_token', accessToken);
+    localStorage.setItem('accessToken', accessToken);
     setAdmin(admin);
   };
 
@@ -72,7 +72,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error) {
       console.error('Error during logout:', error);
     } finally {
-      localStorage.removeItem('access_token');
+      localStorage.removeItem('accessToken');
       setAdmin(null);
     }
   };
