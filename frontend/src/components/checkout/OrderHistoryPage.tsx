@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { orderService } from '@/services/Api';
 import { useAuth } from '@/contexts/AuthContext';
-import {Order} from "@/types/api"
+import {ApiResponse, Order} from "@/types/api"
 import {
   Package,
   Search,
@@ -24,6 +24,7 @@ import {
   X,
   Calendar
 } from 'lucide-react';
+import { AxiosError } from 'axios';
 
 const OrderHistoryPage: React.FC = () => {
 
@@ -50,12 +51,11 @@ const OrderHistoryPage: React.FC = () => {
         if (response.success && response.data) {
           setOrders(response.data);
           setFilteredOrders(response.data);
-        } else {
-          setError('Failed to fetch orders');
-        }
-      } catch (error) {
+        } 
+      } catch (error: unknown) {
+        const axiousError = error as AxiosError <ApiResponse>
         console.error('Error fetching orders:', error);
-        setError('Failed to load orders');
+        setError(axiousError.response?.data.message || 'Failed to load order history. Please try again.');
       } finally {
         setIsLoading(false);
       }
